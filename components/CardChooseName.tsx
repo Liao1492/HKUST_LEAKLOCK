@@ -1,19 +1,32 @@
 import { View, Text, HStack, Icon, VStack } from "native-base";
-import CuriousSVG from "../assets/Curious.svg";
-import CaffeineSVG from "../assets/caffeine.svg";
-import AnalyticalSVG from "../assets/analytical.svg";
-import WordSVG from "../assets/word.svg";
-import CalculatedSVG from "../assets/calculated.svg";
 
 import React from "react";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-const CardChooseName = () => {
+interface IProps {
+  icon: JSX.Element;
+  text: string;
+  selected?: boolean;
+  onPress: () => void;
+}
+const CardChooseName = ({ icon, text, selected = false, onPress }: IProps) => {
   return (
-    <HStack>
-      <Icon as={} size={10} color={"white"} />
-      <VStack>
-        <Text>CuriousExplorer</Text>
-      </VStack>
+    <HStack alignItems={"center"} space={5} marginBottom={4}>
+      <Icon as={icon} size={10} color={"white"} />
+      <TouchableOpacity onPress={onPress}>
+        <VStack
+          padding={3}
+          backgroundColor={selected ? "white" : "primary.200"}
+          rounded={30}
+          minWidth={210}
+          borderWidth={2}
+          borderColor={"primary.200"}
+        >
+          <Text fontSize={20} color={"black"}>
+            {text}
+          </Text>
+        </VStack>
+      </TouchableOpacity>
     </HStack>
   );
 };
