@@ -3,6 +3,11 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { View } from "native-base";
 import Navigation from "./navigation";
 import { extendTheme } from "native-base";
+import { PersistGate } from "redux-persist/integration/react";
+
+import store, { persistor } from "./store/store";
+import { Provider } from "react-redux";
+
 import { NativeBaseProvider } from "native-base";
 export default function App() {
   const theme = extendTheme({
@@ -34,11 +39,15 @@ export default function App() {
     },
   });
   return (
-    <NativeBaseProvider theme={theme}>
-      <SafeAreaProvider>
-        <Navigation />
-        <StatusBar style="light" />
-      </SafeAreaProvider>
-    </NativeBaseProvider>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <NativeBaseProvider theme={theme}>
+          <SafeAreaProvider>
+            <Navigation />
+            <StatusBar style="light" />
+          </SafeAreaProvider>
+        </NativeBaseProvider>
+      </PersistGate>
+    </Provider>
   );
 }

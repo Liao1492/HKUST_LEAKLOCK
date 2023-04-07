@@ -5,14 +5,18 @@ import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList } from "../types";
 import OnBoardingPNG from "../assets/onboarding.png";
 import HeaderLogo from "../components/HeaderLogo";
-
-import React from "react";
+import { useDispatch } from "react-redux";
+import { reset } from "../store/slices/accountSlice";
+import React, { useEffect } from "react";
 
 const Onboarding = ({
   navigation,
 }: StackScreenProps<RootStackParamList, "Onboarding">) => {
   const { top } = useSafeAreaInsets();
-
+  const disaptch = useDispatch();
+  // useEffect(() => {
+  //   disaptch(reset());
+  // }, []);
   return (
     <>
       <HeaderLogo />

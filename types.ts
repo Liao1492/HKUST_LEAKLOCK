@@ -21,11 +21,15 @@ export type RootStackParamList = {
   Onboarding: undefined;
   CreateNewKeys: undefined;
   ChoosePassword: { name: string };
+  ExistingAccount: undefined;
+  InsertPassword: { name: string };
+  LoggedInView: undefined;
 };
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
   NativeStackScreenProps<RootStackParamList, Screen>;
 
 export type RootTabParamList = {
-  TabOne: undefined;
-  TabTwo: undefined;
+  Home: undefined;
+  Logout: undefined;
+  Exchange: undefined;
 };

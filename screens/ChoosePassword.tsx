@@ -4,9 +4,12 @@ import { TouchableOpacity } from "react-native";
 import HeaderLogo from "../components/HeaderLogo";
 import { AntDesign } from "@expo/vector-icons";
 import { StackScreenProps } from "@react-navigation/stack";
+import { useDispatch } from "react-redux";
+import { addAccount } from "../store/slices/accountSlice";
 import { RootStackParamList } from "../types";
 const ChoosePassword = ({
   navigation,
+  route,
 }: StackScreenProps<RootStackParamList, "ChoosePassword">) => {
   const [pass, setPass] = useState({ password: "", confirmPass: "" });
   const isDisabled = pass.confirmPass !== pass.password;
@@ -14,6 +17,9 @@ const ChoosePassword = ({
     pass.confirmPass.length > pass.password.length ||
     (pass.confirmPass.length === pass.password.length &&
       pass.confirmPass !== pass.password);
+
+  const dispatch = useDispatch();
+  const { name } = route.params;
   return (
     <>
       <HeaderLogo showSub />
@@ -75,7 +81,13 @@ const ChoosePassword = ({
             >
               <TouchableOpacity
                 disabled={isDisabled}
-                onPress={() => console.log("pressed")}
+                onPress={() => {
+                  dispatch(addAccount({ name: name, password: pass.password }));
+                  navigation.reset({
+                    index: 0,
+                    routes: [{ name: "LoggedInView" }],
+                  });
+                }}
               >
                 <Icon as={<AntDesign name="right" />} size={7} color="black" />
               </TouchableOpacity>
