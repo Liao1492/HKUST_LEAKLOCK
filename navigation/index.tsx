@@ -15,6 +15,12 @@ import Home from "../screens/Home";
 import ChoosePassword from "../screens/ChoosePassword";
 import Account from "../screens/Account";
 import HomeStack from "../screens/HomeStack";
+import ExistingAccount from "../screens/ExistingAccount";
+import LogoutScreen from "../screens/LogoutScreen";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
+import { useNavigation } from "@react-navigation/native";
+import InsertPassword from "../screens/InsertPassword";
 
 export default function Navigation() {
   return (
@@ -31,6 +37,16 @@ export default function Navigation() {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
+  const navigation = useNavigation();
+  const loginStatus = useSelector((state: RootState) => state.login.loggedIn);
+  React.useEffect(() => {
+    if (loginStatus) {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "LoggedInView" }],
+      });
+    }
+  }, []);
   return (
     <Stack.Navigator
       screenOptions={{
@@ -60,6 +76,16 @@ function RootNavigator() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
+        name="ExistingAccount"
+        component={ExistingAccount}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="InsertPassword"
+        component={InsertPassword}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
         name="LoggedInView"
         component={BottomTabLoginNavigator}
         options={{ headerShown: false }}
@@ -73,7 +99,7 @@ const BottomTab = createBottomTabNavigator<RootTabParamList>();
 const BottomTabLoginNavigator = () => {
   return (
     <BottomTab.Navigator
-      initialRouteName="Home"
+      initialRouteName="HomeStack"
       screenOptions={{
         headerShown: false,
         tabBarStyle: { backgroundColor: "#1C1C1C" },
@@ -92,7 +118,7 @@ const BottomTabLoginNavigator = () => {
         }}
       />
       <BottomTab.Screen
-        name="Home"
+        name="HomeStack"
         component={HomeStack}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
@@ -101,7 +127,16 @@ const BottomTabLoginNavigator = () => {
       />
       <BottomTab.Screen
         name="Logout"
-        component={Home}
+        component={LogoutScreen}
+        listeners={({ navigation }) => ({
+          tabPress: (e) => {
+            e.preventDefault();
+            navigation.reset({
+              index: 0,
+              routes: [{ name: "Onboarding" }],
+            });
+          },
+        })}
         options={{
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="toggle-right" color={color} />

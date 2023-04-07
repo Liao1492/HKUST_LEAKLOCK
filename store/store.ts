@@ -10,6 +10,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import accountSlice from "./slices/accountSlice";
+import loginSlice from "./slices/loginSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const persistConfig = {
@@ -18,7 +19,8 @@ const persistConfig = {
 };
 
 const reducers = combineReducers({
-  project: accountSlice,
+  accounts: accountSlice,
+  login: loginSlice,
 });
 
 const rootReducer = persistReducer(persistConfig, reducers);

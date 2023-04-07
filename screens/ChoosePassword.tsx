@@ -5,6 +5,7 @@ import HeaderLogo from "../components/HeaderLogo";
 import { AntDesign } from "@expo/vector-icons";
 import { StackScreenProps } from "@react-navigation/stack";
 import { useDispatch } from "react-redux";
+import { setLoggedIn } from "../store/slices/loginSlice";
 import { addAccount } from "../store/slices/accountSlice";
 import { RootStackParamList } from "../types";
 const ChoosePassword = ({
@@ -83,6 +84,7 @@ const ChoosePassword = ({
                 disabled={isDisabled}
                 onPress={() => {
                   dispatch(addAccount({ name: name, password: pass.password }));
+                  dispatch(setLoggedIn());
                   navigation.reset({
                     index: 0,
                     routes: [{ name: "LoggedInView" }],

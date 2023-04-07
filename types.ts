@@ -22,7 +22,7 @@ export type RootStackParamList = {
   CreateNewKeys: undefined;
   ChoosePassword: { name: string };
   ExistingAccount: undefined;
-  InsertPassword: { name: string };
+  InsertPassword: { id: string };
   LoggedInView: undefined;
   Account: undefined;
 };
@@ -30,7 +30,7 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
   NativeStackScreenProps<RootStackParamList, Screen>;
 
 export type RootTabParamList = {
-  Home: undefined;
+  HomeStack: undefined;
   Logout: undefined;
   Exchange: undefined;
 };
