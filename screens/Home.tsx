@@ -13,12 +13,21 @@ import HeaderLoggedIn from "../components/HeaderLoggedIn";
 import ListenPNG from "../assets/listening.png";
 import GamePNG from "../assets/game.png";
 import TravelPNG from "../assets/travel.png";
+import { StackScreenProps } from "@react-navigation/stack";
+
+import { RootTabParamList } from "../types";
 import MoviePNG from "../assets/movie.png";
 import DocPNG from "../assets/doc.png";
+import { HomeStackParamList } from "./HomeStack";
 
-const Home = () => {
+const Home = ({ navigation }: StackScreenProps<HomeStackParamList, "Home">) => {
   const { top } = useSafeAreaInsets();
-  const arrCards = [
+  const arrCards: {
+    imgUrl: ImageSourcePropType;
+    title: CardType;
+    subTitle: string;
+    bgColor: ResponsiveValue<ColorType | ILinearGradientProps>;
+  }[] = [
     {
       imgUrl: ListenPNG,
       title: "Listen",
@@ -27,7 +36,7 @@ const Home = () => {
     },
     {
       imgUrl: GamePNG,
-      title: "Games",
+      title: "Game",
       subTitle: "play and explore",
       bgColor: "red.600",
     },
@@ -57,7 +66,7 @@ const Home = () => {
   }: {
     item: {
       imgUrl: ImageSourcePropType;
-      title: string;
+      title: CardType;
       subTitle: string;
       bgColor: ResponsiveValue<ColorType | ILinearGradientProps>;
     };
@@ -68,7 +77,9 @@ const Home = () => {
         imgSrc={item.imgUrl}
         title={item.title}
         subTitle={item.subTitle}
-        onPress={() => {}}
+        onPress={() => {
+          navigation.navigate("Apps", { type: item.title });
+        }}
         bgColor={item.bgColor}
       />
     );

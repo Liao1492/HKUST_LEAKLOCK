@@ -13,6 +13,8 @@ import { RootStackParamList, RootTabParamList } from "../types";
 import CreateNewKeys from "../screens/CreateNewKeys";
 import Home from "../screens/Home";
 import ChoosePassword from "../screens/ChoosePassword";
+import Account from "../screens/Account";
+import HomeStack from "../screens/HomeStack";
 
 export default function Navigation() {
   return (
@@ -53,6 +55,11 @@ function RootNavigator() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
+        name="Account"
+        component={Account}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
         name="LoggedInView"
         component={BottomTabLoginNavigator}
         options={{ headerShown: false }}
@@ -76,7 +83,7 @@ const BottomTabLoginNavigator = () => {
     >
       <BottomTab.Screen
         name="Exchange"
-        component={Home}
+        component={HomeStack}
         options={{
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="exchange" color={color} />
@@ -86,7 +93,7 @@ const BottomTabLoginNavigator = () => {
       />
       <BottomTab.Screen
         name="Home"
-        component={Home}
+        component={HomeStack}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerShown: false,

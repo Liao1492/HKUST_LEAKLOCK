@@ -24,6 +24,7 @@ export type RootStackParamList = {
   ExistingAccount: undefined;
   InsertPassword: { name: string };
   LoggedInView: undefined;
+  Account: undefined;
 };
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
   NativeStackScreenProps<RootStackParamList, Screen>;
